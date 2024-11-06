@@ -36,7 +36,7 @@ def display_docx_from_github(url):
         st.error(f"Error reading DOCX file from GitHub: {e}")
 
 # Streamlit app
-st.title("Display Excel and DOCX Files from GitHub Repository")
+st.title("Master Library Suvichaar")
 
 # Display Excel file content
 st.write("Fetching and displaying the Excel file from GitHub:")
