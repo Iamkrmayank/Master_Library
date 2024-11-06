@@ -6,7 +6,7 @@ from io import BytesIO
 
 # GitHub raw URLs for your files (replace with your actual URLs)
 EXCEL_URL = "https://raw.githubusercontent.com/yourusername/yourrepo/main/data.xlsx"
-DOCX_URL = "https://raw.githubusercontent.com/yourusername/yourrepo/main/document.docx"
+DOCX_URL = "https://github.com/Iamkrmayank/Master_Library/blob/main/Master%20Library.docx"
 
 # Function to load and display Excel file from GitHub
 def display_excel_from_github(url):
