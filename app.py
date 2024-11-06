@@ -4,9 +4,9 @@ from docx import Document
 import requests
 from io import BytesIO
 
-# GitHub raw URLs for your files (replace with your actual URLs)
-EXCEL_URL = "https://github.com/Iamkrmayank/Master_Library/blob/main/Master_Lib_Info.xlsx"
-DOCX_URL = "https://github.com/Iamkrmayank/Master_Library/blob/main/Master%20Library.docx"
+# Corrected GitHub raw URLs for your files
+EXCEL_URL = "https://raw.githubusercontent.com/Iamkrmayank/Master_Library/main/Master_Lib_Info.xlsx"
+DOCX_URL = "https://raw.githubusercontent.com/Iamkrmayank/Master_Library/main/Master%20Library.docx"
 
 # Function to load and display Excel file from GitHub
 def display_excel_from_github(url):
@@ -14,7 +14,9 @@ def display_excel_from_github(url):
         response = requests.get(url)
         response.raise_for_status()  # Check for errors
         excel_data = BytesIO(response.content)
-        df = pd.read_excel(excel_data)
+        
+        # Specify the engine to avoid issues
+        df = pd.read_excel(excel_data, engine="openpyxl")
         st.write("### Excel File Content")
         st.dataframe(df)
     except Exception as e:
