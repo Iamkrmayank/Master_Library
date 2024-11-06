@@ -1,39 +1,45 @@
 import streamlit as st
 import pandas as pd
 from docx import Document
+import requests
+from io import BytesIO
 
-# Function to read Excel file and display content
-def display_excel(file):
+# GitHub raw URLs for your files (replace with your actual URLs)
+EXCEL_URL = "https://raw.githubusercontent.com/yourusername/yourrepo/main/data.xlsx"
+DOCX_URL = "https://raw.githubusercontent.com/yourusername/yourrepo/main/document.docx"
+
+# Function to load and display Excel file from GitHub
+def display_excel_from_github(url):
     try:
-        # Read the Excel file
-        df = pd.read_excel(file)
+        response = requests.get(url)
+        response.raise_for_status()  # Check for errors
+        excel_data = BytesIO(response.content)
+        df = pd.read_excel(excel_data)
         st.write("### Excel File Content")
-        st.dataframe(df)  # Display DataFrame in Streamlit
+        st.dataframe(df)
     except Exception as e:
-        st.error(f"Error reading Excel file: {e}")
+        st.error(f"Error reading Excel file from GitHub: {e}")
 
-# Function to read DOCX file and display content
-def display_docx(file):
+# Function to load and display DOCX file from GitHub
+def display_docx_from_github(url):
     try:
-        # Read the DOCX file
-        doc = Document(file)
+        response = requests.get(url)
+        response.raise_for_status()  # Check for errors
+        docx_data = BytesIO(response.content)
+        doc = Document(docx_data)
         content = "\n".join([para.text for para in doc.paragraphs])
         st.write("### DOCX File Content")
-        st.text(content)  # Display content in Streamlit
+        st.text(content)
     except Exception as e:
-        st.error(f"Error reading DOCX file: {e}")
+        st.error(f"Error reading DOCX file from GitHub: {e}")
 
 # Streamlit app
-st.title("Display Excel and DOCX Files")
+st.title("Display Excel and DOCX Files from GitHub Repository")
 
-# File upload for Excel
-st.write("Upload an Excel file to display its content:")
-excel_file = st.file_uploader("Choose an Excel file", type="xlsx")
-if excel_file is not None:
-    display_excel(excel_file)
+# Display Excel file content
+st.write("Fetching and displaying the Excel file from GitHub:")
+display_excel_from_github(EXCEL_URL)
 
-# File upload for DOCX
-st.write("Upload a DOCX file to display its content:")
-docx_file = st.file_uploader("Choose a DOCX file", type="docx")
-if docx_file is not None:
-    display_docx(docx_file)
+# Display DOCX file content
+st.write("Fetching and displaying the DOCX file from GitHub:")
+display_docx_from_github(DOCX_URL)
