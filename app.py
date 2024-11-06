@@ -5,7 +5,7 @@ import requests
 from io import BytesIO
 
 # GitHub raw URLs for your files (replace with your actual URLs)
-EXCEL_URL = "https://raw.githubusercontent.com/yourusername/yourrepo/main/data.xlsx"
+EXCEL_URL = "https://github.com/Iamkrmayank/Master_Library/blob/main/Master_Lib_Info.xlsx"
 DOCX_URL = "https://github.com/Iamkrmayank/Master_Library/blob/main/Master%20Library.docx"
 
 # Function to load and display Excel file from GitHub
